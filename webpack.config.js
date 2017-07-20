@@ -9,11 +9,8 @@ module.exports = {
     },
     module: {
         loaders: [
-            {
-                test: /\.js$/,
-                loader: "babel",
-                exclude: [/node_modules/, /public/]
-            },
+                { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+                { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
             {
                 test: /\.css$/,
                 loader: "style-loader!css-loader!autoprefixer-loader",
@@ -40,11 +37,11 @@ module.exports = {
                 test: /\.svg/,
                 loader: "url-loader?limit=26000&mimetype=image/svg+xml"
             },
-            {
-                test: /\.jsx$/,
-                loader: "react-hot!babel",
-                exclude: [/node_modules/, /public/]
-            },
+            // {
+            //     test: /\.jsx$/,
+            //     loader: "react-hot!babel-core",
+            //     exclude: [/node_modules/, /public/]
+            // },
             {
                 test: /\.json$/,
                 loader: "json-loader"
