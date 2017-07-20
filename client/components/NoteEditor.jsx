@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './NoteEditor.less';
+// import ColorPicker from './ColorPicker.jsx';
 
-// class NoteEditor extends React.Component
+import './NoteEditor.less';
 
 const NoteEditor = React.createClass({
     getInitialState() {
@@ -20,6 +20,10 @@ const NoteEditor = React.createClass({
     handleTitleChange(event) {
         this.setState({ title: event.target.value });
     },
+
+    // handleColorChange(color) {
+    //     this.setState({ color });
+    // },
 
     handleNoteAdd() {
         const newNote = {
@@ -42,21 +46,26 @@ const NoteEditor = React.createClass({
                     value={this.state.title}
                     onChange={this.handleTitleChange}
                 />
-                <textarea 
+                <textarea
                     placeholder='Enter note text'
                     rows={5}
                     className='NoteEditor__text'
                     value={this.state.text}
                     onChange={this.handleTextChange}
                 />
-                <button
-                    className='NoteEditor__button'
-                    disable={!this.state.text}
-                    onClick={this.handleNoteAdd}
-                >
-                    Add
-                </button>
-                
+                <div className='NoteEditor__footer'>
+                    {/* <ColorPicker
+                        value={this.state.color}
+                        onChange={this.handleColorChange}
+                    /> */}
+                    <button
+                        className='NoteEditor__button'
+                        disabled={!this.state.text}
+                        onClick={this.handleNoteAdd}
+                    >
+                        Add
+                    </button>
+                </div>
             </div>
         );
     }
