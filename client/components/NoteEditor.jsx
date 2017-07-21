@@ -1,25 +1,42 @@
 import React from 'react';
 
-import Toggle from './Toggle.jsx'
-
 import './NoteEditor.less';
 
 const NoteEditor = React.createClass({
     getInitialState() {
         return {
             title: '',
-            text: this.Time,
-            color: '#FFFFFF'
+            text: '',
+            color: '#FFFFFF',
+            isToggleOn: true,
+            shade: 'green'
         };
     },
 
     handleNoteAdd() {
+        let shade = "";
+        if (this.state.isToggleOn != true) {
+            shade = "green";
+            this.setState({ shade: shade});
+            // console.log(shade + ' green');
+        } else {
+            shade = "red";
+            this.setState({ shade: shade});
+            // console.log(shade + ' red');
+        }
+
+
+        this.setState(function(prevState) {
+            return {isToggleOn: !prevState.isToggleOn};
+        });
+        // console.log(this.state.isToggleOn);
         function addZero(i) {
             if (i < 10) {
                 i = "0" + i;
             }
             return i;
         };
+        
         let d = new Date();
         let year = addZero(d.getFullYear().toString().substr(-2));
         let day = addZero(d.getDate());
@@ -37,15 +54,16 @@ const NoteEditor = React.createClass({
     },
 
     render() {
+        let navClass = this.state.shade;
         return (
             <div className='NoteEditor'>
                 <div className='NoteEditor__footer'>
                     <button
-                        className='NoteEditor__button'
+                        className={'NoteEditor__button ' + navClass}
                         /* disabled={!this.Time} */
                         onClick={this.handleNoteAdd}
                     >
-                        Add
+                        {this.state.isToggleOn ? 'START' : 'STOP'}
                     </button>
                 </div>
             </div>
