@@ -1,0 +1,6 @@
+1.
+cd Рабочий\ стол/Workflow/
+npm run server
+
+2.
+npm run webpack-devserver
