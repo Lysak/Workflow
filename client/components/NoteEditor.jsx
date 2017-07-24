@@ -25,11 +25,12 @@ const NoteEditor = React.createClass({
             // console.log(shade + ' red');
         }
 
-
+        
         this.setState(function(prevState) {
             return {isToggleOn: !prevState.isToggleOn};
         });
         // console.log(this.state.isToggleOn);
+
         function addZero(i) {
             if (i < 10) {
                 i = "0" + i;
@@ -43,12 +44,12 @@ const NoteEditor = React.createClass({
         let month = addZero(d.getMonth());
         let h = addZero(d.getHours());
         let m = addZero(d.getMinutes());
-        let Time = (day + '.' + month + '.' + year + ' ' + h + ':' + m + '-');
-        console.log(Time);
+        let time = (day + '.' + month + '.' + year + ' ' + h + ':' + m + '-');
+        console.log(time);
         let newNote = {
         title: this.state.title,
         color: this.state.color,
-        text: Time
+        text: time
         };
         this.props.onNoteAdd(newNote);
     },
@@ -60,7 +61,7 @@ const NoteEditor = React.createClass({
                 <div className='NoteEditor__footer'>
                     <button
                         className={'NoteEditor__button ' + navClass}
-                        /* disabled={!this.Time} */
+                        /* disabled={!this.time} */
                         onClick={this.handleNoteAdd}
                     >
                         {this.state.isToggleOn ? 'START' : 'STOP'}

@@ -24,8 +24,18 @@ const NoteActions = {
         );
     },
 
-    createNote(note) {
-        api.createNote(note)
+    createNote(data) {
+        api.createNote(data)
+        .then(() =>
+            this.loadNotes()
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+
+    updateNote(noteId, data){
+        api.updateNote(noteId, data)
         .then(() =>
             this.loadNotes()
         )

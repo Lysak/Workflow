@@ -11,6 +11,10 @@ export default {
         return axios.post(`${apiPrefix}/notes`, data);
     },
 
+    updateNote(noteId, data) {
+        return axios.put(`${apiPrefix}/notes/${noteId}`);
+    },
+
     deleteNote(noteId) {
         return axios.delete(`${apiPrefix}/notes/${noteId}`);
     }

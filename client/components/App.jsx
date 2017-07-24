@@ -37,7 +37,12 @@ const App = React.createClass({
     },
 
     handleNoteAdd(noteData) {
+        // if (this.state.)
         NotesActions.createNote(noteData);
+    },
+
+    handleNoteUpdate(noteData) {
+        NotesActions.updateNote(noteData);
     },
 
     render() {
