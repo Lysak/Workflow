@@ -9,50 +9,77 @@ const NoteEditor = React.createClass({
             text: '',
             color: '#FFFFFF',
             isToggleOn: true,
-            shade: 'green'
+            shade: 'green',
+            firstTime: NaN
         };
     },
 
     handleNoteAdd() {
+        let scope = this.state;
         let shade = "";
-        if (this.state.isToggleOn != true) {
+        if (scope.isToggleOn != true) {
+            var falseToggle = scope.isToggleOn;
             shade = "green";
-            this.setState({ shade: shade});
-            // console.log(shade + ' green');
+            scope.shade = shade;
         } else {
+            var trueToggle = scope.isToggleOn
             shade = "red";
-            this.setState({ shade: shade});
-            // console.log(shade + ' red');
+            scope.shade = shade;
         }
 
-        
-        this.setState(function(prevState) {
-            return {isToggleOn: !prevState.isToggleOn};
-        });
-        // console.log(this.state.isToggleOn);
+        scope.isToggleOn = !scope.isToggleOn;
 
-        function addZero(i) {
+        function dateTimeNow() {
+            function addZero(i) {
             if (i < 10) {
                 i = "0" + i;
             }
             return i;
-        };
+            };
         
-        let d = new Date();
-        let year = addZero(d.getFullYear().toString().substr(-2));
-        let day = addZero(d.getDate());
-        let month = addZero(d.getMonth());
-        let h = addZero(d.getHours());
-        let m = addZero(d.getMinutes());
-        let time = (day + '.' + month + '.' + year + ' ' + h + ':' + m + '-');
-        console.log(time);
-        let newNote = {
-        title: this.state.title,
-        color: this.state.color,
-        text: time
-        };
-        this.props.onNoteAdd(newNote);
+            let d = new Date();
+            let year = addZero(d.getFullYear().toString().substr(-2));
+            let day = addZero(d.getDate());
+            let month = addZero(d.getMonth());
+            let h = addZero(d.getHours());
+            let m = addZero(d.getMinutes());
+            const time = (day + '.' + month + '.' + year + ' ' + h + ':' + m + '-');
+            return time;
+        }
+
+        function dateNow() {
+                        function addZero(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+            };
+            let d = new Date();
+            let h = addZero(d.getHours());
+            let m = addZero(d.getMinutes());
+            const time = (h + ':' + m);
+            return time;
+        }
+
+        if (trueToggle == true && trueToggle != undefined) {
+            let dateTime = dateTimeNow();
+            scope.firstTime = dateTime;
+            this.setState(scope);
+            console.log(scope.firstTime + " firstTime");
+        } else if (falseToggle == false && falseToggle != undefined) {
+            let secondTime = scope.firstTime + dateNow();
+            console.log(secondTime + ' secondTime');
+            var newNote = {
+            color: scope.color,
+            text: secondTime
+            }
+            console.log(newNote);
+            // console.log("newNote");
+            this.props.onNoteAdd(newNote);   
+        }
     },
+    
+
 
     render() {
         let navClass = this.state.shade;
@@ -60,9 +87,7 @@ const NoteEditor = React.createClass({
             <div className='NoteEditor'>
                 <div className='NoteEditor__footer'>
                     <button
-                        className={'NoteEditor__button ' + navClass}
-                        /* disabled={!this.time} */
-                        onClick={this.handleNoteAdd}
+                        className={'NoteEditor__button ' + navClass} onClick={this.handleNoteAdd}
                     >
                         {this.state.isToggleOn ? 'START' : 'STOP'}
                     </button>
