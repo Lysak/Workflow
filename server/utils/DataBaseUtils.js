@@ -28,14 +28,15 @@ export function createNote(data) {
 }
 
 export function updateNote(id, data) {
-    Note.findById(id, function(err, note){
-        if (err) return handleError(err);
-        // let Note = note.text;
-        note.text += data.text;
-        note.save(function (err, updatedNote) {
-            if (err) return handleError(err);
-            res.send(updatedNote);
-        });
+    let _id = data._id ? data._id : id; 
+    return Note.findById(_id, function(err, updateData){
+        if (err) {
+            return null;
+        } else {
+            let oldText = data.text;
+            updateData.text = data.text;
+            return  new Note(updateData).save();
+        };
     });
 }
 

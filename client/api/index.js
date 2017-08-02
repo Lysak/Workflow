@@ -12,7 +12,7 @@ export default {
     },
 
     updateNote(noteId, data) {
-        return axios.put(`${apiPrefix}/notes/${noteId}`);
+        return axios.put(`${apiPrefix}/notes/${noteId}`, data);
     },
 
     deleteNote(noteId) {

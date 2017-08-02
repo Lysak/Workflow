@@ -25,17 +25,20 @@ const NoteActions = {
     },
 
     createNote(data) {
-        api.createNote(data)
-        .then(() =>
-            this.loadNotes()
+        let res = api.createNote(data);
+        res.then((res) =>
+        {
+            this.loadNotes();
+        }
         )
         .catch(err =>
             console.error(err)
         );
+        return res;
     },
 
-    updateNote(noteId, data){
-        api.updateNote(noteId, data)
+    updateNote(id, data){
+        api.updateNote(id, data)
         .then(() =>
             this.loadNotes()
         )

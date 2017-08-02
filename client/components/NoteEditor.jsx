@@ -10,7 +10,8 @@ const NoteEditor = React.createClass({
             color: '#FFFFFF',
             isToggleOn: true,
             shade: 'green',
-            firstTime: NaN
+            firstTime: NaN,
+            id: null
         };
     },
 
@@ -48,11 +49,11 @@ const NoteEditor = React.createClass({
         }
 
         function dateNow() {
-                        function addZero(i) {
-            if (i < 10) {
-                i = "0" + i;
-            }
-            return i;
+            function addZero(i) {
+                if (i < 10) {
+                    i = "0" + i;
+                }
+                return i;
             };
             let d = new Date();
             let h = addZero(d.getHours());
@@ -64,22 +65,34 @@ const NoteEditor = React.createClass({
         if (trueToggle == true && trueToggle != undefined) {
             let dateTime = dateTimeNow();
             scope.firstTime = dateTime;
-            this.setState(scope);
             console.log(scope.firstTime + " firstTime");
-        } else if (falseToggle == false && falseToggle != undefined) {
-            let secondTime = scope.firstTime + dateNow();
-            console.log(secondTime + ' secondTime');
-            var newNote = {
-            color: scope.color,
-            text: secondTime
+            let newNote = {
+                color: scope.color,
+                text: dateTime
             }
             console.log(newNote);
             // console.log("newNote");
-            this.props.onNoteAdd(newNote);   
+            this.props.onNoteAdd(newNote).then((res) =>{
+                scope.id = res.data._id;
+                this.setState(scope);
+            }
+                );
+        } else if (falseToggle == false && falseToggle != undefined) {
+            let secondTime = scope.firstTime + dateNow();
+            console.log(secondTime + ' secondTime');
+            let newNote = {
+                color: scope.color,
+                text: secondTime,
+                _id: scope.id
+            }
+            console.log(newNote);
+            // console.log("newNote");
+            this.props.oneNoteUpdate(scope.id, newNote);
         }
+        this.setState(scope);
     },
     
-
+    
 
     render() {
         let navClass = this.state.shade;
